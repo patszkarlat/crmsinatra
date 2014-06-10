@@ -19,14 +19,6 @@ get '/contacts' do
 	erb :contacts
 end
 
-get '/contacts/:id' do
-end
-
-get '/contacts/new' do
-end
-
-get 'contacts/:id/edit' do
-end
 
 get '/contacts/new' do
 	erb :new_contact
@@ -37,3 +29,10 @@ post '/contacts' do
 	@@rolodex.add_contact(new_contact)
 	redirect to('/contacts')
 end
+
+get '/contacts/:id' do
+end
+
+get 'contacts/:id/edit' do
+end
+
