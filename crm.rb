@@ -9,7 +9,7 @@ get '/' do
 	erb :index
 end
 
-get 'contacts' do
+get '/contacts' do
 
 	@@rolodex.contacts << Contact.new("Pat", "Szkarlat", "punkgeek@mac.com", "Creative, Apple Inc.")
 	@@rolodex.contacts << Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-founder and Nice Guy")
@@ -19,7 +19,7 @@ get 'contacts' do
 	erb :contacts
 end
 
-get 'contacts/:id' do
+get '/contacts/:id' do
 end
 
 get '/contacts/new' do
@@ -33,5 +33,7 @@ get '/contacts/new' do
 end
 
 post '/contacts' do
-	puts params
+	new_contact = Contact.new(params[:first_name],params[:last_name], params[:email], params[:note])
+	@@rolodex.add_contact(new_contact)
+	redirect to('/contacts')
 end
