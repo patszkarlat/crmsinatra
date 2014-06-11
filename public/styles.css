@@ -11,10 +11,10 @@ p {
 	font-size: 18px;
 }
 
-h3 {
+h2 {
 	margin-left: 20px;
 	font-family: "Helvetica";
-	font-size: 20px
+	font-size: 14px
 }
 
 header {
@@ -23,7 +23,13 @@ header {
 
 li {
 	font-family: "Helvetica Neue";
-	font-size: 18px
+	font-size: 18px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 20px;
 }
 
 a:link {
@@ -51,5 +57,19 @@ a:visited {
 }
 
 a:hover {
-color: #0099FF;
+	color: #0099FF;
+}
 
+footer {
+	font-family: "Helvetica Neue";
+	font-size: 18px;
+	width: 100%;
+}
+
+.container {
+	margin-bottom: 500px;
+}
+
+#menu {
+	margin-top: -30px;
+}
