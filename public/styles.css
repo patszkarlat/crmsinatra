@@ -49,7 +49,7 @@ a:active {
 }
 
 a:link {
-	color: #CC3300;
+	color: #0066FF;
 }
 
 a:visited {
@@ -57,7 +57,7 @@ a:visited {
 }
 
 a:hover {
-	color: #0099FF;
+	color: #FF9900;
 }
 
 footer {
@@ -73,3 +73,5 @@ footer {
 #menu {
 	margin-top: -30px;
 }
+
+/*#hash makes it an id, dot makes it a class.*/
