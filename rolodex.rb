@@ -42,4 +42,9 @@ class Rolodex
 
 		return contact.id
 	end
+
+def remove_contact(contact)
+	@contacts.delete(contact)
+end
+
 end

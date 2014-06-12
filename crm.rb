@@ -2,7 +2,12 @@ require_relative 'rolodex'
 require_relative 'contact'
 require 'sinatra'
 
-@@rolodex = Rolodex.new 
+@@rolodex = Rolodex.new
+@@rolodex.add_contact(Contact.new("Pat", "Szkarlat", "punkgeek@mac.com", "Creative, Apple Inc."))
+@@rolodex.add_contact(Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-founder and Nice Guy"))
+@@rolodex.add_contact(Contact.new("Julie", "Hache", "julie@bitmakerlabs.com", "Lead Instructor of Awesomeness"))
+@@rolodex.add_contact(Contact.new("Erik", "Dohnberg", "erik@bitmakerlabs.com", "Admissions Officer and Commiserator of Apple Employees"))
+
 
 get '/' do 
 	@crm_app_name = "My CRM"
@@ -10,15 +15,8 @@ get '/' do
 end
 
 get '/contacts' do
-
-	@@rolodex.contacts << Contact.new("Pat", "Szkarlat", "punkgeek@mac.com", "Creative, Apple Inc.")
-	@@rolodex.contacts << Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-founder and Nice Guy")
-	@@rolodex.contacts << Contact.new("Julie", "Hache", "julie@bitmakerlabs.com", "Lead Instructor of Awesomeness")
-	@@rolodex.contacts << Contact.new("Erik", "Dohnberg", "erik@bitmakerlabs.com", "Admissions Officer and Commiserator of Apple Employees")
-
 	erb :contacts
 end
-
 
 get '/contacts/new' do
 	erb :new_contact
@@ -30,8 +28,9 @@ post '/contacts' do
 	redirect to('/contacts')
 end
 
-puts "/contacts/:id" do
-	@contact = @@rolodex.find(params[:id].to_i)
+
+put "/contacts/:id" do
+	@contact = @@rolodex.find_contact(params[:id].to_i)
 	if @contact
 		@contact.first_name = params[:first_name]
 		@contact.last_name = params[:last_name]
@@ -45,19 +44,43 @@ puts "/contacts/:id" do
 end
 
 get '/contacts/:id' do
-	@contact = @@rolodex.find(params[:id].to_i)
+	# "#{params[:id]}"
+	@contact = @@rolodex.find_contact(params[:id].to_i)
+
+	# puts "***** ATTENTION ATTENTION"
+	# puts "@contact is currently: #{@contact}"
+
 	if @contact
 		erb :show_contact
 	else
 		raise Sinatra::NotFound
+
+		# "@contact was nil. Here are the contents of @@rolodex.contacts: #{ @@rolodex.contacts.each {|c| c.to_s} }"
 	end
 end
 
-get 'contacts/:id/edit' do
+get '/contacts/:id/edit' do
+	@contact = @@rolodex.find_contact(params[:id].to_i)
+	# this is the only space where I can set instance variables for
+	# edit_contact
+
+
 	erb :edit_contact
 end
 
-get "contacts/1000" do
-	@contact = @@rolodex.find(1000)
+
+get "/contacts/1000" do
+	@contact = @@rolodex.find_contact(1000)
 	erb :show_contact
+end
+
+delete "/contacts/:id" do
+	@contact = @@rolodex.find_contact(params[:id].to_i)
+
+	if @contact
+		@@rolodex.remove_contact(@contact)
+		redirect to("/contacts")
+	else
+		raise Sinatra::NotFound
+	end
 end
