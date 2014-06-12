@@ -31,6 +31,8 @@ post '/contacts' do
 end
 
 get '/contacts/:id' do
+	@contact = @@rolodex.find(params[:id].to_i)
+	erb :show_contact
 end
 
 get 'contacts/:id/edit' do
