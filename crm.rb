@@ -36,3 +36,7 @@ end
 get 'contacts/:id/edit' do
 end
 
+get "contacts/1000" do
+	@contact = @@rolodex.find(1000)
+	erb :show_contact
+end
