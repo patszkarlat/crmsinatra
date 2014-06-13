@@ -1,6 +1,17 @@
-require_relative 'rolodex'
-require_relative 'contact'
 require 'sinatra'
+require 'data_mapper'
+
+DataMapper.setup(:default, "sqlite3:database.sqlite")
+
+class Contact
+	include DataMapper::Resource
+
+	property :id, Serial
+	property :first_name, String
+	property :last_name, String
+	property :email, String
+	property :note, String
+end
 
 @@rolodex = Rolodex.new
 @@rolodex.add_contact(Contact.new("Pat", "Szkarlat", "punkgeek@mac.com", "Creative, Apple Inc."))
