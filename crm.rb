@@ -13,11 +13,14 @@ class Contact
 	property :note, String
 end
 
-@@rolodex = Rolodex.new
-@@rolodex.add_contact(Contact.new("Pat", "Szkarlat", "punkgeek@mac.com", "Creative, Apple Inc."))
-@@rolodex.add_contact(Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-founder and Nice Guy"))
-@@rolodex.add_contact(Contact.new("Julie", "Hache", "julie@bitmakerlabs.com", "Lead Instructor of Awesomeness"))
-@@rolodex.add_contact(Contact.new("Erik", "Dohnberg", "erik@bitmakerlabs.com", "Admissions Officer and Commiserator of Apple Employees"))
+DataMapper.finalize
+DataMapper.auto_upgrade!
+
+# @@rolodex = Rolodex.new
+# @@rolodex.add_contact(Contact.new("Pat", "Szkarlat", "punkgeek@mac.com", "Creative, Apple Inc."))
+# @@rolodex.add_contact(Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-founder and Nice Guy"))
+# @@rolodex.add_contact(Contact.new("Julie", "Hache", "julie@bitmakerlabs.com", "Lead Instructor of Awesomeness"))
+# @@rolodex.add_contact(Contact.new("Erik", "Dohnberg", "erik@bitmakerlabs.com", "Admissions Officer and Commiserator of Apple Employees"))
 
 
 get '/' do 
