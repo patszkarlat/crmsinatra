@@ -53,13 +53,23 @@ end
 
 put "/contacts/:id" do
 	@contact = Contact.get(params[:id].to_i)
-		if @contact
-			erb :show_contact
-		else
-			raise Sinatra::NotFound
-		end
+	if @contact
+		@contact.first_name = params[:first_name]
+		@contact.last_name = params[:last_name]
+		@contact.email = params[:email]
+		@contact.note = params[:note]
+		@contact.save
+		redirect to("/contacts")
+	else
+		raise Sinatra::NotFound
 	end
-	
+end
+
+delete "/contacts/:id" do
+	Contact.get(params[:id].to_i).destroy	
+	redirect to("/contacts")
+end
+
 	# @contact = @@rolodex.find_contact(params[:id].to_i)
 	# if @contact
 	# 	@contact.first_name = params[:first_name]
@@ -71,11 +81,11 @@ put "/contacts/:id" do
 	# else
 	# 	raise Sinatra::NotFound
 	# end
-end
+
 
 get '/contacts/:id' do
 	# "#{params[:id]}"
-	@contact = @@rolodex.find_contact(params[:id].to_i)
+	@contact = Contact.get(params[:id].to_i)
 
 	# puts "***** ATTENTION ATTENTION"
 	# puts "@contact is currently: #{@contact}"
@@ -86,35 +96,5 @@ get '/contacts/:id' do
 		raise Sinatra::NotFound
 
 		# "@contact was nil. Here are the contents of @@rolodex.contacts: #{ @@rolodex.contacts.each {|c| c.to_s} }"
-	end
-end
-
-get '/contacts/:id/edit' do
-	@contact = @@rolodex.find_contact(params[:id].to_i)
-	if @contact 
-		erb :edit_contact
-		else
-		raise Sinatra::NotFound	# this is the only space where I can set instance variables for
-	# edit_contact
-
-
-	# erb :edit_contact
-	end
-end
-
-
-get "/contacts/1000" do
-	@contact = @@rolodex.find_contact(1000)
-	erb :show_contact
-end
-
-delete "/contacts/:id" do
-	@contact = @@rolodex.find_contact(params[:id].to_i)
-
-	if @contact
-		@@rolodex.remove_contact(@contact)
-		redirect to("/contacts")
-	else
-		raise Sinatra::NotFound
 	end
 end
