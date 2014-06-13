@@ -61,11 +61,15 @@ end
 
 get '/contacts/:id/edit' do
 	@contact = @@rolodex.find_contact(params[:id].to_i)
-	# this is the only space where I can set instance variables for
+	if @contact 
+		erb :edit_contact
+		else
+		raise Sinatra::NotFound	# this is the only space where I can set instance variables for
 	# edit_contact
 
 
-	erb :edit_contact
+	# erb :edit_contact
+	end
 end
 
 
