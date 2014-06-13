@@ -52,17 +52,25 @@ end
 
 
 put "/contacts/:id" do
-	@contact = @@rolodex.find_contact(params[:id].to_i)
-	if @contact
-		@contact.first_name = params[:first_name]
-		@contact.last_name = params[:last_name]
-		@contact.email = params[:email]
-		@contact.note = params[:note]
-
-		redirect to("/contacts")
-	else
-		raise Sinatra::NotFound
+	@contact = Contact.get(params[:id].to_i)
+		if @contact
+			erb :show_contact
+		else
+			raise Sinatra::NotFound
+		end
 	end
+	
+	# @contact = @@rolodex.find_contact(params[:id].to_i)
+	# if @contact
+	# 	@contact.first_name = params[:first_name]
+	# 	@contact.last_name = params[:last_name]
+	# 	@contact.email = params[:email]
+	# 	@contact.note = params[:note]
+
+	# 	redirect to("/contacts")
+	# else
+	# 	raise Sinatra::NotFound
+	# end
 end
 
 get '/contacts/:id' do
